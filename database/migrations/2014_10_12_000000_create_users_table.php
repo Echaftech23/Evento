@@ -18,10 +18,12 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->enum('gender', ['male', 'female'])->default('male');
-            $table->int('age')->nullable();
+            $table->enum('status', ['0', '1', '2'])->default('1'); // pending -accepted -banned
+            $table->integer('age')->nullable();
             $table->string('phone')->nullable()->unique();
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -21,7 +21,7 @@ return new class extends Migration
             $table->date('endDate');
             $table->integer('capacity');
             $table->double('price');
-            $table->enum('isAuto', ['0', '1'])->default('0');
+            $table->enum('isAuto', ['0', '1'])->default('0'); // confirm reservation automatically or manually
             $table->enum('status', ['0', '1', '2'])->default('0');
             $table->timestamps();
             $table->foreignId('city_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
