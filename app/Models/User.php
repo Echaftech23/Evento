@@ -59,6 +59,16 @@ class User extends Authenticatable implements HasMedia
         return $this->belongsToMany(Role::class);
     }
 
+    public function isAdmin()
+    {
+        return $this->roles->contains('name', 'Admin');
+    }
+
+    public function isOrganizer()
+    {
+        return $this->roles->contains('name', 'Organizer');
+    }
+
     public function events()
     {
         return $this->belongsToMany(Event::class);
