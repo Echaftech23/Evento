@@ -19,7 +19,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h2 class="modal-title fs-5" id="exampleModalLabel">Add Category</h2>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close border-none" data-bs-dismiss="modal" aria-label="Close">x</button>
       </div>
       <div class="modal-body">
         <form action="{{ route('categories.store') }}" method="POST">
@@ -62,7 +62,6 @@
             <td class="align-middle">{{ $category->created_at }}</td>
             <td class="align-middle">
                 <div class="btn-group" role="group" aria-label="Basic example">
-                    {{-- <a href="{{ route('categories.edit', $category->id)}}" type="button" class="btn btn-warning">Edit</a> --}}
                     <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#{{$category->id}}">
                         Edit
                     </button>
@@ -82,7 +81,7 @@
             <div class="modal-content">
             <div class="modal-header">
                 <h2 class="modal-title fs-5" id="exampleModalLabel">Edit Category</h2>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close border-none" data-bs-dismiss="modal" aria-label="Close">x</button>
             </div>
             <div class="modal-body">
                 <form action="{{ route('categories.update', $category->id) }}" method="POST">
