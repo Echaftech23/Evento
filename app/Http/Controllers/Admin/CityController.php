@@ -15,16 +15,8 @@ class CityController extends Controller
      */
     public function index()
     {
-        $cities = City::all();
+        $cities = City::paginate(9);
         return view('admin.cities.index', compact('cities'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('admin.cities.create');
     }
 
     /**
@@ -34,15 +26,6 @@ class CityController extends Controller
     {
         City::create($request->validated());
         return redirect()->route('cities.index')->with('success', 'City created successfully.');
-    }
-
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(City $city)
-    {
-        return view('admin.cities.edit', compact('city'));
     }
 
     /**

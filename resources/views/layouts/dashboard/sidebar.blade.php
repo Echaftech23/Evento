@@ -5,7 +5,7 @@
         <div class="sidebar-brand-icon">
             <i class="fas fa-book"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">YouBook</div>
+        <div class="sidebar-brand-text mx-3">YouEvent</div>
     </a>
 
     <!-- Divider -->
@@ -34,6 +34,12 @@
         <a class="nav-link" href="{{ route('categories.index') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Category</span></a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('cities.index') }}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>City</span></a>
     </li>
 
     <li class="nav-item">
