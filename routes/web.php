@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +32,7 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::resource('users', UserController::class);
+    Route::resource('categories', CategoryController::class);
 });
 
 require __DIR__ . '/auth.php';

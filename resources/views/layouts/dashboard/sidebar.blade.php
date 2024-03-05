@@ -19,7 +19,7 @@
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('dashboard') }}">
+        <a class="nav-link" href="{{ route('users.index') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>User</span></a>
     </li>
@@ -31,9 +31,9 @@
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('dashboard') }}">
+        <a class="nav-link" href="{{ route('categories.index') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Book</span></a>
+            <span>Category</span></a>
     </li>
 
     <li class="nav-item">
