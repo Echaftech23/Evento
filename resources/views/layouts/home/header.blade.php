@@ -12,7 +12,22 @@
             <li class="nav-item"><a href="speakers.html" class="nav-link">Speakers</a></li>
             <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
             <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-            <li class="nav-item cta mr-md-2"><a href="#" class="nav-link">Buy ticket</a></li>
+            <li class="nav-item cta mr-md-2" style="position: relative;">
+                <a class="nav-link dropdown-toggle" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Get Started
+                </a>
+                <!-- Dropdown - User Information -->
+                <div class="dropdown-menu dropdown-menu-right animated--grow-in" style="position: absolute; top: 100%; left: 0; background-color: #6B76FF;" aria-labelledby="userDropdown">
+                    <a class="nav-link ml-2 text-white" href="#">
+                        Buy ticket
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="nav-link ml-2 text-white" href="{{ route('events.create') }}">
+                        Create Event
+                    </a>
+                </div>
+
+            </li>
         </ul>
         </div>
     </div>

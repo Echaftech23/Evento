@@ -5,7 +5,7 @@
         <div class="sidebar-brand-icon">
             <i class="fas fa-book"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">Even<span class="text-dark">talk</span></div>
+        <div class="sidebar-brand-text mx-3">You<span class="text-dark">Event</span></div>
     </a>
 
     <!-- Divider -->

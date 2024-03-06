@@ -20,6 +20,60 @@
     <link href="{{ asset('css/output.css') }}" rel="stylesheet" type="text/css">
 
   </head>
+
+  <style>
+
+.card {
+    width: 600px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px 0px #302f30;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+
+
+/* .erea{ background-color: rgb(17, 159, 52)} */
+
+.set-p {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.image {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.rating {
+    background-color: #3D5AFE;
+    color: #fff;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.grade {
+    font-size: 18px;
+}
+
+.line {
+    height: 1px;
+    background-color: #E0E0E0;
+}
+
+@media screen and (max-width: 575px) {
+    .image {
+        height: auto;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 0px;
+        border-top-right-radius: 10px;
+    }
+}
+  </style>
   <body>
 
     @include('layouts.home.header')

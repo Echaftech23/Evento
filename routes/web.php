@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home.index');
 });
 
 Route::get('/dashboard', function () {
@@ -36,5 +36,12 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::resource('categories', CategoryController::class);
     Route::resource('cities', CityController::class);
 });
+
+Route::middleware(['auth', 'is_organizer'])->group(function () {
+    Route::resource('events', UserController::class);
+
+});
+
+
 
 require __DIR__ . '/auth.php';
