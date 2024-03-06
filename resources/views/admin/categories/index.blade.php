@@ -6,7 +6,7 @@
 <div class="d-flex align-items-center justify-content-between">
     <h1 class="mb-0">List Category</h1>
 
-    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Add Category
     </button>
 </div>
