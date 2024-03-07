@@ -64,19 +64,32 @@
 
     <section class="ftco-counter img" id="section-counter">
     	<div class="container">
-    		<div class="row d-flex">
-    			<div class="col-md-6 d-flex">
-    				<div class="img d-flex align-self-stretch" style="background-image: url('{{ asset('img/about.jpg') }}');"></div>
-    			</div>
-    			<div class="col-md-6 pl-md-5 py-5">
-    				<div class="row justify-content-start pb-3">
-		          <div class="col-md-12 heading-section ftco-animate">
-		          	<span class="subheading">Fun Facts</span>
-		            <h2 class="mb-4"><span>Fun</span> Facts</h2>
-		            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>
-		          </div>
+            <div class="row d-flex">
+            <div class="col-md-6 d-flex">
+                <div class="img d-flex align-self-stretch" style="background-image: url('{{ asset('img/about.jpg') }}');"></div>
+            </div>
+            <div class="col-md-6 pl-md-5 py-5">
+                <div class="row justify-content-start pb-3">
+                    <div class="col-md-12 heading-section ftco-animate">
+                        <h2 class="mb-4">Far far away, behind</h2>
+                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>
                     </div>
-                    <div class="row">
+                </div>
+                <div class="row justify-content-evenly pb-3">
+                    <div class="col-12 col-md-6 lg-col-6 ftco-animate">
+                        <h6 class="text-dark font-weight-bold">Price</h6>
+                        <p>Yousoufia, Youcode</p>
+                    </div>
+                    <div class="col-12 col-md-6 pl-3 lg-col-5 ftco-animate">
+                        <h6 class="text-dark font-weight-bold">Location</h6>
+                        <div class="row px-3">
+                            <h2 class="text-success mb-1 font-weight-bold">$99</h2>
+                            <p class="text-muted ml-2"><del>$120</del></p>
+                            <p class="text-success mb-1 ml-2">Save $21</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-md-6 justify-content-center counter-wrap ftco-animate">
                         <div class="block-18 text-center py-4 bg-light mb-4">
                         <div class="text">
@@ -121,8 +134,12 @@
                         </div>
                         </div>
                     </div>
+
+                    <div class="col-md-4 ftco-animate">
+                        <button class="btn btn-danger fs-3 btn-buy px-3 py-3">Buy Ticket Now</button>
                     </div>
                 </div>
+            </div>
         </div>
     	</div>
     </section>
@@ -178,7 +195,8 @@
 
             <div class="col-md-4 d-flex ftco-animate">
                 <div class="blog-entry justify-content-end" style="position: relative;">
-                    <a href="blog-single.html" class="block-20" style="background-image: url({{ asset('img/event-2.jpg') }});"></a>
+                    {{-- <a href="{{ route('events.show', $event->id) }}" class="block-20" style="background-image: url({{ asset('img/event-2.jpg') }});"></a> --}}
+                    <a href="" class="block-20" style="background-image: url({{ asset('img/event-2.jpg') }});"></a>
                     <div class="date" style="position: absolute; top: 0; left: 0; background-color: #77D7B9; padding: 1em 1.5em; z-index: 10; border-bottom-right-radius: 50%;">
                             <span class="day text-center font-weight-bold d-block text-white" style="font-size: 18px;">12</span>
                             <span class="month text-center d-block text-white" style="font-size: 14px;">Aug</span>
@@ -208,7 +226,8 @@
                         </div>
                         <div class="row erea d-flex px-3">
                             <button class="btn btn-danger btn-buy px-3">Buy Now</button>
-                            <button class="btn btn-primary btn-view ml-2">View Detail</button>
+                            <a href="" class="btn btn-primary btn-view ml-2">View Detail</a>
+                            {{-- <a href="{{ route('events.show', $event->id) }}" class="btn btn-primary btn-view ml-2">View Detail</a> --}}
                         </div>
                     </div>
                 </div>

@@ -3,6 +3,9 @@
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Organizer\EstablishmentController;
+use App\Http\Controllers\Organizer\EventController;
+use App\Http\Controllers\Organizer\OrganizerController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,13 +20,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home.index');
-});
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/', [EventController::class, 'index'])->name('home.index');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -38,8 +35,13 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
 });
 
 Route::middleware(['auth', 'is_organizer'])->group(function () {
-    Route::resource('events', UserController::class);
+    Route::resource('events', EventController::class);
+    Route::resource('organizers', OrganizerController::class);
+});
 
+Route::middleware('auth')->group(function () {
+    Route::resource('establishments', EstablishmentController::class);
+    Route::resource('events', EventController::class);
 });
 
 

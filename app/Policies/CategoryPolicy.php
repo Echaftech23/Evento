@@ -29,7 +29,7 @@ class CategoryPolicy
      */
     public function create(User $user): bool
     {
-        //
+        return $user->roles->whereIn('name', 'Admin')->isNotEmpty();
     }
 
     /**

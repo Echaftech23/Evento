@@ -10,7 +10,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('dashboard') }}">
+        <a class="nav-link" href="{{ route('users.index') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
     </li>
@@ -22,7 +22,7 @@
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('dashboard') }}">
+        <a class="nav-link" href="{{ route('organizers.index') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Reservation</span></a>
     </li>
@@ -40,7 +40,7 @@
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="dashboard">
+        <a class="nav-link" href="/profile">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Profile</span></a>
     </li>
