@@ -8,8 +8,6 @@ use App\Models\City;
 use App\Models\Event;
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
-use App\Models\Establishment;
-use App\Models\Organizer;
 use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
@@ -19,11 +17,10 @@ class EventController extends Controller
      */
     public function index()
     {
-        $singleEvent = Event::latest()->first();
+        $organizer = Auth::user()->organizer;
+        $events = $organizer->events()->paginate(9);
 
-        $events = Event::where('id', '!=', $singleEvent->id)->get();
-
-        return view('home.index', compact('singleEvent', 'events'));
+        return view('organizer.events.index', compact( 'events'));
     }
 
     /**
@@ -32,7 +29,6 @@ class EventController extends Controller
     public function create()
     {
         $this->authorize('create', Event::class);
-
         $categories = Category::latest()->get();
         $cities = City::latest()->get();
 
@@ -44,22 +40,12 @@ class EventController extends Controller
      */
     public function store(StoreEventRequest $request)
     {
-
         $data = $request->validated();
 
         $organizer = Auth::user()->organizer;
         $organizer->events()->create($data);
 
         return redirect()->route('home.index')->with('success', 'Event created Successfully');
-    }
-
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Event $event)
-    {
-        return view('home.event-details', compact('event'));
     }
 
     /**
@@ -72,7 +58,7 @@ class EventController extends Controller
         $categories = Category::latest()->get();
         $cities = City::latest()->get();
 
-        return view('home.event-edit', compact('categories', 'cities'));
+        return view('home.event-edit', compact('event','categories', 'cities'));
     }
 
     /**
@@ -81,7 +67,7 @@ class EventController extends Controller
     public function update(UpdateEventRequest $request, Event $event)
     {
         $event->update($request->validated());
-        return redirect()->route('home.index')->with('success', 'Event updated successfully.');
+        return redirect()->route('organizer.events.index')->with('success', 'Event updated successfully.');
     }
 
     /**
@@ -93,6 +79,7 @@ class EventController extends Controller
 
         $event->delete();
 
-        return redirect()->route('home.index')->with('success', 'Event deleted successfully');
+        return redirect()->route('events.index')->with('success', 'Event deleted successfully');
     }
+
 }

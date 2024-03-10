@@ -95,66 +95,74 @@
     </section>
 
     <x-ftco-speakers />
-
-    @if ($events->count() > 0)
-        <section class="ftco-section bg-light">
-            <div class="container">
-                <div class="row justify-content-center mb-5 pb-3">
-                <div class="col-md-7 heading-section text-center ftco-animate">
-                    <span class="subheading">Our Events</span>
-                    <h2><span>Recent</span> Event</h2>
-                </div>
-                </div>
-                <div class="row d-flex">
-                    @foreach ($events as $event)
-                        <div class="col-md-4 d-flex ftco-animate">
-                            <div class="blog-entry justify-content-end" style="position: relative;">
-                                <a href="blog-single.html" class="block-20" style="background-image: url({{ asset('img/event-1.jpg') }});"></a>
-                                <div class="date" style="position: absolute; top: 0; left: 0; background-color: #77D7B9; padding: 1em 1.5em; z-index: 10; border-bottom-right-radius: 50%;">
-                                    <span class="day text-center font-weight-bold d-block text-white" style="font-size: 18px;">{{ $timerData['formattedDayStart'] }}</span>
-                                    <span class="month text-center d-block text-white" style="font-size: 14px;">{{ $timerData['formattedStartDate'] }}</span>
-                                    <span class="year text-center d-block text-white" style="font-size: 14px;">{{ $timerData['formattedYearStart'] }}</span>
-                                </div>
-                                <div class="text p-4 float-right d-block">
-                                    <div class="row px-3 mt-4 mb-3">
-                                        <p class="rating mb-0 px-2 mr-3"><strong>8.0</strong></p>
-                                        <p class="text-primary mb-0 mr-2 grade"><strong>Very Good</strong></p>
-                                        <p class="text-secondary mb-0 mr-2">&middot;</p>
-                                        <p class="text-secondary mb-0">14K reviews</p>
-                                    </div>
-                                    <div class="row px-3 mt-1">
-                                        <h3 class="font-weight-bold">{{ $event->title }}</h3>
-                                    </div>
-                                    <div class="line"></div>
-                                    <div class="row px-3 mt-3">
-                                        <h5 class="text-secondary mb-1">Limited Seats Available!</h5>
-                                    </div>
-                                    <div class="row px-3">
-                                        <h2 class="text-success mb-1 font-weight-bold">${{ $event->price }}</h2>
-                                        <p class="text-muted ml-2"><del>$120</del></p>
-                                        <p class="text-success mb-1 ml-2">Save $21</p>
-                                    </div>
-                                    <div class="row px-3 mb-3">
-                                        <p class="text-muted mb-0">Only 20 seats left</p>
-                                    </div>
-                                    <div class="row erea d-flex px-3">
-                                        <form action="{{ route('reservations.store') }}" method="POST" enctype="multipart/form-data">
-                                            @csrf
-                                            <input type="hidden" name="event_id" value="{{$event->id}}">
-                                            <button class="btn btn-danger btn-buy px-3">Buy Now</button>
-                                        </form>
-                                        <a href="{{route('home.show', $event->id)}}" class="btn btn-primary btn-view ml-2">View Detail</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
+    <section class="ftco-section bg-light">
+      <div class="container">
+        <div class="row justify-content-center mb-5 pb-3">
+          <div class="col-md-7 heading-section text-center ftco-animate">
+          	<span class="subheading">Our Blog</span>
+            <h2><span>Recent</span> Blog</h2>
+          </div>
+        </div>
+        <div class="row d-flex">
+          <div class="col-md-4 d-flex ftco-animate">
+          	<div class="blog-entry justify-content-end">
+              <a href="blog-single.html" class="block-20" style="background-image: url({{asset('img/image_1.jpg')}});">
+              </a>
+              <div class="text p-4 float-right d-block">
+              	<div class="d-flex align-items-center pt-2 mb-4">
+              		<div class="one">
+              			<span class="day">07</span>
+              		</div>
+              		<div class="two">
+              			<span class="yr">2019</span>
+              			<span class="mos">January</span>
+              		</div>
+              	</div>
+                <h3 class="heading mt-2"><a href="#">Why Lead Generation is Key for Business Growth</a></h3>
+                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+              </div>
             </div>
-        </section>
-    @endif
-
-    <x-ftco-testimonial />
+          </div>
+          <div class="col-md-4 d-flex ftco-animate">
+          	<div class="blog-entry justify-content-end">
+              <a href="blog-single.html" class="block-20" style="background-image: url({{asset('img/image_2.jpg')}});">
+              </a>
+              <div class="text p-4 float-right d-block">
+              	<div class="d-flex align-items-center pt-2 mb-4">
+              		<div class="one">
+              			<span class="day">01</span>
+              		</div>
+              		<div class="two">
+              			<span class="yr">2019</span>
+              			<span class="mos">January</span>
+              		</div>
+              	</div>
+                <h3 class="heading mt-2"><a href="#">Why Lead Generation is Key for Business Growth</a></h3>
+                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 d-flex ftco-animate">
+          	<div class="blog-entry">
+              <a href="blog-single.html" class="block-20" style="background-image: url({{asset('img/image_3.jpg')}});">
+              </a>
+              <div class="text p-4 float-right d-block">
+              	<div class="d-flex align-items-center pt-2 mb-4">
+              		<div class="one">
+              			<span class="day">03</span>
+              		</div>
+              		<div class="two">
+              			<span class="yr">2023</span>
+              			<span class="mos">April</span>
+              		</div>
+              	</div>
+                <h3 class="heading mt-2"><a href="#">Why Lead Generation is Key for Business Growth</a></h3>
+                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
     <x-ftco-newsletter />
-    <x-ftco-gallery />
 @endsection

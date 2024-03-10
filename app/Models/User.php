@@ -73,4 +73,14 @@ class User extends Authenticatable implements HasMedia
     {
         return $this->belongsToMany(Event::class);
     }
+
+    public function hasReservation(Event $event)
+    {
+        return $this->reservations()->where('event_id', $event->id)->exists();
+    }
+
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class);
+    }
 }

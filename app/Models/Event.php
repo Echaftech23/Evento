@@ -33,18 +33,23 @@ class Event extends Model implements HasMedia
         return $this->belongsToMany(User::class);
     }
 
-    public function organizers()
+    public function organizer()
     {
-        return $this->belongsToMany(Organizer::class);
+        return $this->belongsTo(Organizer::class);
     }
 
-    public function categories()
+    public function category()
     {
         return $this->belongsTo(Category::class);
     }
 
-    public function cities()
+    public function city()
     {
         return $this->belongsTo(City::class);
+    }
+
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class);
     }
 }

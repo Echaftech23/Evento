@@ -32,6 +32,7 @@ class StoreEventRequest extends FormRequest
             'capacity' => 'required|integer|min:1',
             'price' => 'required|numeric|min:0',
             'city_id' => 'required|exists:cities,id',
+            'isAuto' => 'sometimes',
             'category_id' => 'required|exists:categories,id'
         ];
     }

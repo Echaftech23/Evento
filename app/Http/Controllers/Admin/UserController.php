@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Http\Requests\UpdateUserRequest;
 
 class UserController extends Controller
 {
@@ -13,7 +12,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::latest()->get();
+        $users = User::paginate(9);
         $statisticUser = User::count();
         return view('admin.users.index', compact(['users', 'statisticUser']));
     }
@@ -23,25 +22,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $skills = $user->skills->pluck('name')->toArray();
-
-        return view('admin.users.show', compact('user', 'skills'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(User $user)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateUserRequest $request, User $user)
-    {
-        //
+        return view('admin.users.show', compact('user'));
     }
 
     /**
@@ -49,6 +30,8 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+
+        return redirect()->route('users.index')->with('success', 'User Blocked successfully.');
     }
 }

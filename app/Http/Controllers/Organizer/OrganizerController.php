@@ -5,11 +5,34 @@ namespace App\Http\Controllers\Organizer;
 use App\Http\Controllers\Controller;
 use App\Models\Organizer;
 use App\Http\Requests\UpdateOrganizerRequest;
+use App\Models\Event;
+use App\Models\Reservation;
 
 class OrganizerController extends Controller
 {
 
 
+    public function statistics()
+    {
+        $events = Event::with(['reservations' => function ($query) {
+            $query->where('status', '1');
+        }])
+            ->where('organizer_id', auth()->id())
+            ->get();
+
+        $statisticsData = [
+            'eventsCreated' => $events->count(),
+            'totalBookings' => $events->flatMap->bookings->count(),
+            'pendingReservations' => Reservation::whereHas('event', function ($query) {
+                $query->where('organizer_id', auth()->id());
+            })->where('status', '0')->count(),
+            'events' => $events
+        ];
+
+        return view('organizer.statistics', compact('statisticsData'));
+    }
+
+    
     /**
      * Display the specified resource.
      */

@@ -8,36 +8,67 @@
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
-    <!-- Nav Item - Dashboard -->
-    <li class="nav-item">
+    @if(Auth::user()->roles->first()->name == "Admin")
+
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('users.index') }}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Statistics</span></a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" href="{{ route('eventsRequest.index') }}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Requests</span></a>
+        </li>
+        <li class="nav-item">
         <a class="nav-link" href="{{ route('users.index') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a>
-    </li>
+            <span>Users</span></a>
+        </li>
 
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('users.index') }}">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>User</span></a>
-    </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('categories.index') }}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Categories</span></a>
+        </li>
 
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('organizers.index') }}">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Reservation</span></a>
-    </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('cities.index') }}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Cities</span></a>
+        </li>
 
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('categories.index') }}">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Category</span></a>
-    </li>
+    @elseif(Auth::user()->roles->first()->name == "Organizer")
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('users.index') }}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>My Statistics</span></a>
+        </li>
 
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('cities.index') }}">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>City</span></a>
-    </li>
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('users.index') }}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>My Establishment</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('events.index') }}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>My Events</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('reservations.index') }}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Reservations</span>
+            </a>
+        </li>
+
+    @endif
 
     <li class="nav-item">
         <a class="nav-link" href="/profile">

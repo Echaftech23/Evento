@@ -15,13 +15,13 @@ class Reservation extends Model
         'user_id'
     ];
 
-    public function users()
+    public function user()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsTo(User::class);
     }
 
-    public function events()
+    public function event()
     {
-        return $this->belongsToMany(Event::class);
+        return $this->belongsTo(Event::class);
     }
 }

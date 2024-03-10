@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Organizer;
 
 use App\Http\Controllers\Controller;
 use App\Models\Reservation;
@@ -16,10 +16,18 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
-        $reservations = $user->reservations()->paginate(6);
+        $organizer = Auth::user()->organizer;
 
-        return view('users.reservations.index', compact('reservations'));
+        $reservations = $organizer->events()
+            ->with(['reservations' => function ($query) {
+                $query->with('user');
+            }])
+            ->get()
+            ->pluck('reservations')
+            ->flatten()
+            ->sortByDesc('created_at');
+
+        return view('organizer.reservations.index', compact('reservations'));
     }
 
     /**
@@ -30,7 +38,7 @@ class ReservationController extends Controller
         $this->authorize('create', Reservation::class);
 
         $event = Event::find($request->event_id);
-        
+
         $eventIsOpenForReservation = $event->capacity > 0 && $event->registerEndDate > now();
         $reservationStatus = $event->isAuto;
 
@@ -48,27 +56,15 @@ class ReservationController extends Controller
 
 
     /**
-     * Display the specified resource.
-     */
-    public function show(Reservation $reservation)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Reservation $reservation)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateReservationRequest $request, Reservation $reservation)
+    public function update(Reservation $reservation)
     {
-        //
+        $reservation->status = '1';
+        $event->increment('total_reservations');
+        $reservation->save();
+
+        return redirect()->route('reservations.index')->with('success', 'Reservation accepted successfully.');
     }
 
     /**
@@ -76,6 +72,9 @@ class ReservationController extends Controller
      */
     public function destroy(Reservation $reservation)
     {
-        //
+
+        $reservation->delete();
+
+        return redirect()->route('reservations.index')->with('success', 'Reservation rejected successfully.');
     }
 }

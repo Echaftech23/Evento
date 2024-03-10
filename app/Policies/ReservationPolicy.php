@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\Reservation;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
+use Illuminate\Support\Facades\Auth;
 
 class ReservationPolicy
 {
@@ -29,8 +30,15 @@ class ReservationPolicy
      */
     public function create(User $user): bool
     {
-        //
+        // $organizer = $user->organizer;
+        // $userIsNotEventOrganizer = $organizer && $organizer->events()->where('organizer_id', '!=', $user->id)->count() === 0;
+        $userHasNoPendingReservations = $user->reservations()->where('status', '0')->count() === 0;
+
+        // return  $userHasNoPendingReservations && $duplicatedReservations;
+        return  $userHasNoPendingReservations;
+        // return true;
     }
+
 
     /**
      * Determine whether the user can update the model.
