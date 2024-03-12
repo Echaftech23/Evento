@@ -11,8 +11,9 @@
     <div class="container bg-white" style="max-width: 70%; padding-inline: 0">
         <div class="form-header mx-auto" style="background: url({{asset('img/bg-form-.jpg')}}) bottom/cover; max-height:250px; height: 200px;"></div>
         <div class="form-body p-5">
-            <form class="row g-3" action="{{ route('events.store') }}" method="POST" enctype="multipart/form-data">
+            <form class="row g-3" action="{{ route('events.update', $event) }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                @method('PATCH')
                 <div class="col-md-12">
                     <label for="inputPassword4" class="form-label">Event Title :</label>
                     <input type="text" name="title" value="{{old('title')}}" class="form-control @error('title') border-danger @enderror" id="inputPassword4" placeholder="Enter Event Title">
@@ -100,7 +101,7 @@
                 </div>
                 <div class="col-md-4">
                     <label for="inputZip" class="form-label">Total Places :</label>
-                    <input type="number" name="capacity" value="{{old('capacity')}}" class="form-control @error('capacity') border-danger @enderror" id="inputZip">
+                    <input type="number" name="capacity" value="{{$event->capacity}}" class="form-control @error('capacity') border-danger @enderror" id="inputZip">
                     @error('capacity')
                         <span class="text-sm text-danger">{{ $message }}</span>
                     @enderror

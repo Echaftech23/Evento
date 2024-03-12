@@ -1,8 +1,9 @@
 @extends('layouts.dashboard.app')
 
 @section('contents')
-<div class="container py-2">
-    <div class="row" style="margin-bottom: 50px">
+<div class="container py-4">
+    <h2>My Statistics</h2>
+    <div class="row">
         <div class="col-md-4">
             <div class="card text-center">
                 <div class="card-header">Events Created</div>
@@ -11,7 +12,7 @@
                         {{ $statisticsData["eventsCreated"] }}
                     </h5>
                     <p class="card-text">
-                        Total number of Your events.
+                        Total number of events you have created.
                     </p>
                 </div>
             </div>
@@ -34,7 +35,7 @@
                 <div class="card-header">Pending Bookings</div>
                 <div class="card-body">
                     <h5 class="card-title">
-                        {{ $statisticsData["pendingReservations"] }}
+                        {{ $statisticsData["pendingBookings"] }}
                     </h5>
                     <p class="card-text">
                         Bookings awaiting your confirmation.
@@ -43,47 +44,40 @@
             </div>
         </div>
     </div>
-    <div class="table-responsive mt-4">
+    <h3>Event Details</h3>
+    <div class="table-responsive">
         <table class="table">
             <thead>
                 <tr>
                     <th>Event Title</th>
                     <th>Event Period</th>
+                    <th>Remaining Places</th>
                     <th>Booked Places</th>
                     <th>Remaining Days</th>
-                    <th>Action</th>
+                    <th>Details</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($events as $event)
+                @foreach ($statisticsData['events'] as $event)
                 <tr>
-                    <td>{{ Str::limit($event->title , 30, '...') }}</td>
+                    <td>{{ $event->title }}</td>
                     <td>
-                        @if($event->endDate && $event->startDate)
-                            {{ \Carbon\Carbon::parse($event->startDate)->diffInDays(\Carbon\Carbon::parse($event->endDate)) + 1 }} days
-                        @else
-                            N/A
-                        @endif
+                        @if($event->endDate && $event->StartDate)
+                        {{ $event->StartDate->diffInDays($event->endDate) + 1 }}
+                        days @else N/A @endif
                     </td>
-
-
                     <td>
                         {{ $event->capacity }}
                     </td>
                     <td>
-                        @if(\Carbon\Carbon::parse($event->StartDate)->gt(now()))
-                            Not Started
-                        @elseif(\Carbon\Carbon::parse($event->endDate)->gt(now()))
-                            {{ \Carbon\Carbon::parse($event->endDate)->endOfDay()->diffInDays(\Carbon\Carbon::now()->startOfDay()) }} days
-                        @elseif($event->endDate && \Carbon\Carbon::parse($event->endDate)->lte(\Carbon\Carbon::now()))
-                            Ended
-                        @else
-                            Ongoing
-                        @endif
-
+                        {{ $event->reservations>where('status', '1') }}
                     </td>
-                    <td class="align-middle">
-                        <a href="{{ route('home.show', $event) }}" type="button" class="btn btn-primary">View Details</a>
+                    <td>
+                        @if($event->StartDate > now()) Not Started
+                        @elseif($event->endDate > now())
+                        {{ $event->endDate->copy()->endOfDay()->diffInDays(now()->startOfDay()) }}
+                        days @elseif($event->endDate && $event->endDate <=
+                        now()) Ended @else Ongoing @endif
                     </td>
                 </tr>
                 @endforeach

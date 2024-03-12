@@ -21,7 +21,6 @@ class StoreEventRequest extends FormRequest
      */
     public function rules(): array
     {
-        // dd('aa');
         return [
             'title' => 'required|string|max:255',
             'description' => 'required|string',
@@ -33,7 +32,8 @@ class StoreEventRequest extends FormRequest
             'price' => 'required|numeric|min:0',
             'city_id' => 'required|exists:cities,id',
             'isAuto' => 'sometimes',
-            'category_id' => 'required|exists:categories,id'
+            'category_id' => 'required|exists:categories,id',
+            'event_image' => 'nullable|image',
         ];
     }
 }

@@ -109,7 +109,7 @@
                     @foreach ($events as $event)
                         <div class="col-md-4 d-flex ftco-animate">
                             <div class="blog-entry justify-content-end" style="position: relative;">
-                                <a href="blog-single.html" class="block-20" style="background-image: url({{ asset('img/event-1.jpg') }});"></a>
+                                <a href="blog-single.html" class="block-20" style="background-image: url({{ $event->getFirstMediaUrl('events') }});"></a>
                                 <div class="date" style="position: absolute; top: 0; left: 0; background-color: #77D7B9; padding: 1em 1.5em; z-index: 10; border-bottom-right-radius: 50%;">
                                     <span class="day text-center font-weight-bold d-block text-white" style="font-size: 18px;">{{ $timerData['formattedDayStart'] }}</span>
                                     <span class="month text-center d-block text-white" style="font-size: 14px;">{{ $timerData['formattedStartDate'] }}</span>
@@ -123,7 +123,7 @@
                                         <p class="text-secondary mb-0">14K reviews</p>
                                     </div>
                                     <div class="row px-3 mt-1">
-                                        <h3 class="font-weight-bold">{{ $event->title }}</h3>
+                                        <h3 class="font-weight-bold">{{Str::limit($event->title, 30, '...')}}</h3>
                                     </div>
                                     <div class="line"></div>
                                     <div class="row px-3 mt-3">

@@ -9,51 +9,15 @@ $user = Auth::user();
         <!-- Topbar Search -->
         <form action="" class="d-none d-sm-inline-block navbar-search" style="margin-inline: 30px; width: 250px;">
             <div class="input-group">
-                <input type="text" id="searchInput" class=" bg-gray border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" style="background-color: #eceff3; width: 84%; padding-left: 15px; outline: none">
+                <input type="text" id="search-input" class=" bg-gray border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" style="background-color: #eceff3; width: 84%; padding-left: 15px; outline: none">
                 <div class="input-group-append">
-                    <button class="btn btn-primary" type="button" onclick="searchEvents()">
+                    <button class="btn btn-primary" type="button">
                         <i class="fas fa-search fa-sm"></i>
                     </button>
                 </div>
             </div>
         </form>
 
-        <script>
-            function searchEvents() {
-                var query = document.getElementById('searchInput').value;
-                var xhr = new XMLHttpRequest();
-
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState === 4) {
-                        if (xhr.status === 200) {
-                            var response = JSON.parse(xhr.responseText);
-                            displayEventDetails(response.events);
-                        } else {
-                            console.error('Error:', xhr.statusText);
-                        }
-                    }
-                };
-
-                xhr.open('GET', '/search-events?query=' + encodeURIComponent(query), true);
-                xhr.send();
-            }
-
-            function displayEventDetails(events) {
-                var resultsContainer = document.getElementById('searchResults');
-                resultsContainer.innerHTML = '';
-
-                if (events.length === 0) {
-                    resultsContainer.innerHTML = '<p>No events found.</p>';
-                } else {
-                    events.forEach(function (event) {
-                        var eventDetails = '<p><strong>Title:</strong> ' + event.title + '</p>';
-                        eventDetails += '<p><strong>Description:</strong> ' + event.description + '</p>';
-
-                        resultsContainer.innerHTML += eventDetails;
-                    });
-                }
-            }
-        </script>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="oi oi-menu"></span> Menu
@@ -62,7 +26,7 @@ $user = Auth::user();
         <div class="collapse navbar-collapse" id="ftco-nav">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item active"><a href="{{route('home.index')}}" class="nav-link">Home</a></li>
-            @can('viewAny', \App\Models\Event::class)
+            @can('MyEvent', \App\Models\Event::class)
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="{{route('events.index')}}"  id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     My Events
@@ -71,15 +35,17 @@ $user = Auth::user();
                 <!-- Dropdown - User Information -->
                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="eventDropdown">
                     @can('viewAny', \App\Models\Event::class)
-                        <a class="dropdown-item" href="{{route('events.index')}}">
+                        <a class="dropdown-item" href="{{route('organizers.statistics')}}">
                             <i class="fas fa-tachometer-alt fa-sm fa-fw mr-2fa-sm fa-fw mr-2"></i>
                             Dashboard
                         </a>
                     @endcan
-                    <a class="dropdown-item" href="{{route('reservations.index')}}">
-                        <i class="fas fa-ticket-alt fa-sm fa-fw mr-2"></i>
-                        My Tickets
-                    </a>
+                    @can('viewAny', \App\Models\Reservation::class)
+                        <a class="dropdown-item" href="{{route('reservations.index')}}">
+                            <i class="fas fa-ticket-alt fa-sm fa-fw mr-2"></i>
+                            My Tickets
+                        </a>
+                    @endcan
                     <a class="dropdown-item" href="{{route('events.index')}}">
                         <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                         Buy Ticket
@@ -91,7 +57,6 @@ $user = Auth::user();
             <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
 
             <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
-            <li class="nav-item"><a href="blog.html" class="nav-link">Contact </a></li>
 
             @can('create', \App\Models\Event::class)
                 @if (Auth::user()->roles->first()->name == "Admin")

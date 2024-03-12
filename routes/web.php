@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Organizer\EstablishmentController;
 use App\Http\Controllers\Organizer\EventController;
+use App\Http\Controllers\Organizer\ReservationController as ReservationRequestController;
 use App\Http\Controllers\Admin\EventController as EventRequestController;
 use App\Http\Controllers\Organizer\OrganizerController;
 use App\Http\Controllers\Organizer\ReservationController as OrganizerReservationController;
@@ -27,7 +28,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::resource('home', HomeController::class);
 Route::get('/home/show/{event}', [HomeController::class, 'show'])->name('home.show');
-Route::get('/search-events', [HomeController::class, 'searchEvents'])->name('search.events');
+Route::get('search', [HomeController::class, 'search'])->name('search');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -48,13 +49,19 @@ Route::middleware(['auth', 'is_organizer'])->group(function () {
     Route::resource('events', EventController::class);
     Route::resource('organizers', OrganizerController::class);
     Route::resource('reservations', OrganizerReservationController::class);
+    Route::resource('reservationRequest', ReservationRequestController::class);
+    Route::patch('reservationRequest/{reservation}/update', [ReservationRequestController::class, 'update'])->name('reservationRequest.accept');
+    Route::delete('reservationRequest/{reservation}/destroy', [ReservationRequestController::class, 'destroy'])->name('reservationRequest.reject');
+    Route::get('organizer/statistics', [OrganizerController::class, 'statistics'])->name('organizers.statistics');
 });
 
 Route::middleware('auth')->group(function () {
     Route::resource('establishments', EstablishmentController::class);
     Route::resource('events', EventController::class)->except(['show']);
-    Route::resource('reservationRequest', ReservationController::class);
+    Route::resource('reservations', ReservationController::class);
+    Route::get('reservations/{reservation}/generatePdf', [ReservationController::class, 'generatePdf'])->name('user.tickets.download');
 });
+
 
 
 

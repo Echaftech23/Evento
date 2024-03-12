@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Event;
 use Illuminate\Http\Request;
 
@@ -47,16 +48,31 @@ class HomeController extends Controller
     }
 
 
-    public function searchEvents(Request $request)
+    public function search(Request $request)
     {
         $query = $request->input('query');
-        $events = Event::where('status', 1)
-        ->where('title', 'like', "%$query%")
-        ->pluck('title');
 
-        return response()->json(['events' => $events]);
+        $eventsQuery = Event::query();
+
+        if ($query) {
+            $eventsQuery->where('title', 'like', "%$query%");
+        }
+
+        $events = $eventsQuery->get();
+
+        $eventData = [];
+
+        foreach ($events as $event) {
+            $eventData[] = [
+                'id' => $event->id,
+                'title' => $event->title,
+                'place' => $event->city->name,
+                'imageUrl' =>  $event->getFirstMediaUrl('events'),
+            ];
+        }
+
+        return response()->json($eventData);
     }
-
 
     public function timer(Event $event)
     {

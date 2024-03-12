@@ -5,8 +5,8 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Reservation;
 use App\Http\Requests\StoreReservationRequest;
-use App\Http\Requests\UpdateReservationRequest;
 use App\Models\Event;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
 
 class ReservationController extends Controller
@@ -30,7 +30,7 @@ class ReservationController extends Controller
         $this->authorize('create', Reservation::class);
 
         $event = Event::find($request->event_id);
-        
+
         $eventIsOpenForReservation = $event->capacity > 0 && $event->registerEndDate > now();
         $reservationStatus = $event->isAuto;
 
@@ -47,35 +47,12 @@ class ReservationController extends Controller
     }
 
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Reservation $reservation)
+    public function generatePdf(Reservation $reservation)
     {
-        //
-    }
+        $data = ['example' => 'Hello, this is a PDF!'];
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Reservation $reservation)
-    {
-        //
-    }
+        $pdf = PDF::loadView('users.reservations.ticket', compact('reservation'));
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateReservationRequest $request, Reservation $reservation)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Reservation $reservation)
-    {
-        //
+        return $pdf->download('ticket.pdf');
     }
 }

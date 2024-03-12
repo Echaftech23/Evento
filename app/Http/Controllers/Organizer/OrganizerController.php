@@ -14,6 +14,7 @@ class OrganizerController extends Controller
 
     public function statistics()
     {
+
         $events = Event::with(['reservations' => function ($query) {
             $query->where('status', '1');
         }])
@@ -22,17 +23,16 @@ class OrganizerController extends Controller
 
         $statisticsData = [
             'eventsCreated' => $events->count(),
-            'totalBookings' => $events->flatMap->bookings->count(),
+            'totalBookings' => $events->flatMap->reservations->count(),
             'pendingReservations' => Reservation::whereHas('event', function ($query) {
                 $query->where('organizer_id', auth()->id());
             })->where('status', '0')->count(),
-            'events' => $events
         ];
 
-        return view('organizer.statistics', compact('statisticsData'));
+        return view('organizer.reservations.statistics', compact('statisticsData', 'events'));
     }
 
-    
+
     /**
      * Display the specified resource.
      */

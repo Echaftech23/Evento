@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Organizer;
 use App\Http\Controllers\Controller;
 use App\Models\Reservation;
 use App\Http\Requests\StoreReservationRequest;
-use App\Http\Requests\UpdateReservationRequest;
 use App\Models\Event;
 use Illuminate\Support\Facades\Auth;
 
@@ -60,11 +59,12 @@ class ReservationController extends Controller
      */
     public function update(Reservation $reservation)
     {
+        // dd($reservation);
         $reservation->status = '1';
-        $event->increment('total_reservations');
+        $reservation->event->decrement('capacity');
         $reservation->save();
 
-        return redirect()->route('reservations.index')->with('success', 'Reservation accepted successfully.');
+        return redirect()->route('reservationRequest.index')->with('success', 'Reservation accepted successfully.');
     }
 
     /**

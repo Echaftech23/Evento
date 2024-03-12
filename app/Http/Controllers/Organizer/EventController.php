@@ -20,8 +20,10 @@ class EventController extends Controller
         $organizer = Auth::user()->organizer;
         $events = $organizer->events()->paginate(9);
 
-        return view('organizer.events.index', compact( 'events'));
+        return view('organizer.events.index', compact('events'));
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -43,7 +45,13 @@ class EventController extends Controller
         $data = $request->validated();
 
         $organizer = Auth::user()->organizer;
-        $organizer->events()->create($data);
+        $event = $organizer->events()->create($data);
+
+        if ($request->hasFile('event_image')) {
+            $event->addMediaFromRequest('event_image')
+                ->toMediaCollection('events');
+        }
+
 
         return redirect()->route('home.index')->with('success', 'Event created Successfully');
     }
@@ -58,7 +66,7 @@ class EventController extends Controller
         $categories = Category::latest()->get();
         $cities = City::latest()->get();
 
-        return view('home.event-edit', compact('event','categories', 'cities'));
+        return view('organizer.events.edit', compact('event', 'categories', 'cities'));
     }
 
     /**
@@ -81,5 +89,4 @@ class EventController extends Controller
 
         return redirect()->route('events.index')->with('success', 'Event deleted successfully');
     }
-
 }

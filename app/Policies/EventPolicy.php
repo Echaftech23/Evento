@@ -12,6 +12,11 @@ class EventPolicy
         return $user->roles->contains('name', 'Organizer') && $user->organizer->events()->exists();
     }
 
+    public function MyEvent(User $user)
+    {
+        return $user->roles->contains('name', 'Organizer') || $user->reservations->contains('user_id', $user->id);
+    }
+
     /**
      * Determine whether the user can view the model.
      */

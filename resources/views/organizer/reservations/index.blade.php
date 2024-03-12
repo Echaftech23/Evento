@@ -63,22 +63,22 @@
                 <div class="btn-group" role="group" aria-label="Basic example">
                     @switch($reservation->status)
                         @case(0)
-                            <form action="{{ route('reservations.update', $reservation) }}" method="POST" type="button" class="btn btn-primary p-0">
+                            <form action="{{ route('reservationRequest.accept', $reservation) }}" method="POST"  class="btn btn-primary p-0">
                                 @csrf
-                                @method('PUT')
-                                <button class="btn btn-primary">Accept</button>
+                                @method('PATCH')
+                                <button class="btn btn-primary" type="submit">Accept</button>
                             </form>
-                            <form action="{{ route('reservations.destroy', $reservation) }}" method="POST" type="button" class="btn btn-danger p-0" onsubmit="return confirm('Are You sure You want To Reject This Reservation?')">
+                            <form action="{{ route('reservationRequest.reject', $reservation) }}" method="POST"  class="btn btn-danger p-0" onsubmit="return confirm('Are You sure You want To Reject This Reservation?')">
                                 @csrf
                                 @method('DELETE')
-                                <button class="btn btn-danger m-0">Reject</button>
+                                <button class="btn btn-danger m-0" type="submit">Reject</button>
                             </form>
                         @break
                         @case(1)
-                            <form action="{{ route('reservations.destroy', $reservation) }}" method="POST" type="button" class="btn btn-danger p-0" onsubmit="return confirm('Are You sure You want To Reject This Reservation?')">
+                            <form action="{{ route('reservationRequest.destroy', $reservation) }}" method="POST" class="btn btn-danger p-0" onsubmit="return confirm('Are You sure You want To Reject This Reservation?')">
                                 @csrf
                                 @method('DELETE')
-                                <button class="btn btn-danger m-0">Block</button>
+                                <button class="btn btn-danger m-0" type="submit">Block</button>
                             </form>
                         @break
                     @endswitch

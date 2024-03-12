@@ -2,6 +2,9 @@
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <div class="sidebar-brand-icon">
+            <i class="fas fas fa-ticket-alt"></i>
+        </div>
         <div class="sidebar-brand-text mx-3">You<span class="text-dark">Event</span></div>
     </a>
 
@@ -12,7 +15,7 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('users.index') }}">
+            <a class="nav-link" href="{{ route('organizers.statistics') }}">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Statistics</span></a>
         </li>
@@ -42,7 +45,7 @@
     @elseif(Auth::user()->roles->first()->name == "Organizer")
         <!-- Nav Item - Dashboard -->
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('users.index') }}">
+            <a class="nav-link" href="{{ route('organizers.statistics') }}">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>My Statistics</span></a>
         </li>
@@ -62,7 +65,7 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('reservations.index') }}">
+            <a class="nav-link" href="{{ route('reservationRequest.index') }}">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Reservations</span>
             </a>

@@ -22,16 +22,16 @@ class UpdateEventRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'address' => 'required|string|max:255',
-            'registerEndDate' => 'required|date',
-            'startDate' => 'required|date',
-            'endDate' => 'required|date|after_or_equal:startDate',
+            // 'title' => 'required|string|max:255',
+            // 'description' => 'required|string',
+            // 'address' => 'required|string|max:255',
+            // 'registerEndDate' => 'required|date',
+            // 'startDate' => 'required|date',
+            // 'endDate' => 'required|date|after_or_equal:startDate',
             'capacity' => 'required|integer|min:1',
-            'price' => 'required|numeric|min:0',
-            'city_id' => 'required|exists:cities,id',
-            'category_id' => 'required|exists:categories,id'
+            // 'price' => 'required|numeric|min:0',
+            // 'city_id' => 'required|exists:cities,id',
+            // 'category_id' => 'required|exists:categories,id'
         ];
     }
 }

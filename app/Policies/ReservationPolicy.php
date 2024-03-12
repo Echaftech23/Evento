@@ -4,8 +4,6 @@ namespace App\Policies;
 
 use App\Models\Reservation;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
-use Illuminate\Support\Facades\Auth;
 
 class ReservationPolicy
 {
@@ -14,7 +12,7 @@ class ReservationPolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        return $user->reservations->contains('user_id', $user->id);
     }
 
     /**
@@ -22,7 +20,7 @@ class ReservationPolicy
      */
     public function view(User $user, Reservation $reservation): bool
     {
-        //
+        return $user->reservations->contains('user_id', $user->id);
     }
 
     /**
@@ -32,11 +30,10 @@ class ReservationPolicy
     {
         // $organizer = $user->organizer;
         // $userIsNotEventOrganizer = $organizer && $organizer->events()->where('organizer_id', '!=', $user->id)->count() === 0;
-        $userHasNoPendingReservations = $user->reservations()->where('status', '0')->count() === 0;
-
+        // $userHasNoPendingReservations = $user->reservations()->where('status', '0')->count() === 0;
         // return  $userHasNoPendingReservations && $duplicatedReservations;
-        return  $userHasNoPendingReservations;
-        // return true;
+        // return  $userHasNoPendingReservations;
+        return true;
     }
 
 

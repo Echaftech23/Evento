@@ -159,9 +159,9 @@
                 </div>
                 <div class="row d-flex">
                     @foreach ($events as $event)
-                        <div class="col-md-4 d-flex ftco-animate">
+                        <div class="col-md-4 d-flex ftco-animate" id="events-container">
                             <div class="blog-entry justify-content-end" style="position: relative;">
-                                <a href="blog-single.html" class="block-20" style="background-image: url({{ asset('img/event-1.jpg') }});"></a>
+                                <a href="blog-single.html" class="block-20" style="background-image: url({{ $event->getFirstMediaUrl('events') }});"></a>
                                 <div class="date" style="position: absolute; top: 0; left: 0; background-color: #77D7B9; padding: 1em 1.5em; z-index: 10; border-bottom-right-radius: 50%;">
                                     <span class="day text-center font-weight-bold d-block text-white" style="font-size: 18px;">{{ $timerData['formattedDayStart'] }}</span>
                                     <span class="month text-center d-block text-white" style="font-size: 14px;">{{ $timerData['formattedStartDate'] }}</span>
@@ -190,7 +190,7 @@
                                         <p class="text-muted mb-0">Only 20 seats left</p>
                                     </div>
                                     <div class="row erea d-flex px-3">
-                                        <form action="{{ route('reservationRequest.store') }}" method="POST">
+                                        <form action="{{ route('reservations.store') }}" method="POST">
                                             @csrf
                                             <input type="hidden" name="event_id" value="{{ $event->id }}">
                                             <button class="btn btn-danger btn-buy px-3"
@@ -283,6 +283,40 @@
       </div>
     </section>
 
+
     <x-ftco-newsletter />
     <x-ftco-gallery />
+        <script>
+            const searchInput = document.querySelector('#search-input');
+            const eventsContainer = document.querySelector('#events-container');
+
+            searchInput.addEventListener('keyup', fetchData);
+
+            function fetchData() {
+                const query = searchInput.value;
+
+                fetch(`/search?query=${query}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        eventsContainer.innerHTML = '';
+                        data.forEach(event => {
+                            const eventHtml = `
+                            <div class="swiper-slide col-lg-4 col-md-6 col-sm-12 mt-2">
+                                <div class="next-event-content">
+                                    <figure class="featured-image">
+                                        <a href="/events/${event.id}" class="entry-content flex flex-column justify-content-center align-items-center">
+                                            <h3>${event.title}</h3>
+                                        </a>
+                                    </figure><!-- featured-image -->
+                                </div><!-- next-event-content -->
+                            </div>
+                        `;
+                            eventsContainer.innerHTML += eventHtml;
+                        });
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+        </script>
 @endsection
+
+

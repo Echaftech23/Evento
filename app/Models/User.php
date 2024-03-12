@@ -83,4 +83,9 @@ class User extends Authenticatable implements HasMedia
     {
         return $this->hasMany(Reservation::class);
     }
+
+    public function hasRole($roleName)
+    {
+        return $this->roles()->where('name', $roleName)->exists();
+    }
 }

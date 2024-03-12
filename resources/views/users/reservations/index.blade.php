@@ -36,7 +36,7 @@
                                         <p class="text-secondary mb-0">14K reviews</p>
                                     </div>
                                     <div class="row px-3 mt-1">
-                                        <h3 class="font-weight-bold">{{ $reservation->event->title }}</h3>
+                                        <h3 class="font-weight-bold">{{Str::limit($reservation->title, 30, '...')}}</h3>
                                     </div>
                                     <div class="line"></div>
                                     <div class="row px-3 mt-3">
@@ -75,7 +75,7 @@
                                                     @if ($reservationStatus == 0)
                                                         Pending
                                                     @elseif ($reservationStatus == 1)
-                                                        Download Ticket
+                                                        <a href="{{route('user.tickets.download', $reservation)}}" class="text-white">Download Ticket</a>
                                                     @else
                                                         Rejected
                                                     @endif
@@ -83,7 +83,7 @@
 
 
                                             </form>
-                                        <a href="{{route('home.show', $reservation->id)}}" class="btn btn-primary btn-view ml-2">View Detail</a>
+                                        <a href="{{route('home.show', $reservation)}}" class="btn btn-primary btn-view ml-2">View Detail</a>
                                     </div>
                                 </div>
                             </div>
